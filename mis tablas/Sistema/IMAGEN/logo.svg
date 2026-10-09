@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gradLogo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5722"/>
+      <stop offset="50%" stop-color="#FF9800"/>
+      <stop offset="100%" stop-color="#FFC107"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="5" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Background Badge / Shield -->
+  <rect x="10" y="10" width="480" height="100" rx="30" fill="#2A2D43" filter="url(#shadow)"/>
+  
+  <!-- Multiplication Symbol Icon -->
+  <g transform="translate(30, 20)">
+    <circle cx="40" cy="40" r="35" fill="url(#gradLogo)"/>
+    <path d="M26 26 L54 54 M54 26 L26 54" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="68" cy="18" r="6" fill="#4CAF50"/>
+    <circle cx="12" cy="62" r="5" fill="#00BCD4"/>
+  </g>
+  
+  <!-- Text Elements -->
+  <text x="130" y="58" font-family="'Nunito', 'Comic Sans MS', sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" letter-spacing="1">
+    MIS <tspan fill="#FFD54F">TABLAS</tspan>
+  </text>
+  <text x="132" y="90" font-family="'Nunito', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#80DEEA" letter-spacing="2">
+    AVENTURA MATEMÁTICA 4° BÁSICO
+  </text>
+  
+  <!-- Decorative stars -->
+  <polygon points="450,30 453,38 462,39 455,45 457,53 450,48 443,53 445,45 438,39 447,38" fill="#FFD700"/>
+  <polygon points="420,70 422,76 429,77 424,82 425,88 420,84 415,88 416,82 411,77 418,76" fill="#FFCA28"/>
+  <polygon points="465,80 466,84 471,85 467,88 468,93 465,90 462,93 463,88 459,85 464,84" fill="#FFF"/>
+</svg>

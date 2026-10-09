@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#4A00E0">
+  <title>MIS TABLAS - Plataforma Interactiva 4° Básico</title>
+  
+  <link rel="icon" type="image/svg+xml" href="IMAGEN/logo.svg">
+  <link rel="stylesheet" href="CSS/style.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- BARRA DE NAVEGACIÓN SUPERIOR (HEADER)       -->
+  <!-- ========================================== -->
+  <header class="top-navbar">
+    <div class="navbar-brand" onclick="App.showView('menu')">
+      <img src="IMAGEN/logo.svg" alt="Mis Tablas" class="nav-logo">
+    </div>
+
+    <!-- Perfil del Estudiante en Header -->
+    <div class="nav-student-profile">
+      <div class="student-avatar-badge" onclick="App.showView('menu')">
+        <img src="IMAGEN/avatar_buho.svg" id="headerStudentAvatar" alt="Avatar" class="avatar-head-img">
+        <div class="student-meta-col">
+          <span class="student-name-text" id="headerStudentName">Estudiante</span>
+          <span class="student-level-tag" id="headerStudentLevel">🌱 Nivel 1</span>
+        </div>
+      </div>
+
+      <!-- Métricas rápidas de juego -->
+      <div class="nav-metrics-group">
+        <div class="metric-chip chip-score" title="Puntaje Total">
+          <span class="icon">🏆</span>
+          <span id="headerStudentScore">0</span>
+        </div>
+        <div class="metric-chip chip-stars" title="Estrellas Acumuladas">
+          <span class="icon">⭐</span>
+          <span id="headerStudentStars">0</span>
+        </div>
+      </div>
+
+      <!-- Barra de progreso general en header -->
+      <div class="nav-progress-wrap" title="Progreso Total de Tablas">
+        <div class="mini-bar-shell">
+          <div class="mini-bar-fill" id="headerOverallProgress" style="width: 0%;"></div>
+        </div>
+        <span class="mini-bar-text" id="headerOverallText">0%</span>
+      </div>
+    </div>
+
+    <!-- Controles de Utilidad (Audio, Narrador, Salir) -->
+    <div class="nav-controls">
+      <button class="nav-btn-icon" id="btnToggleSound" onclick="AudioManager.toggleSound(); this.classList.toggle('muted');" title="Activar/Silenciar Sonido">
+        🔊
+      </button>
+      <button class="nav-btn-icon" id="btnToggleSpeech" onclick="AudioManager.toggleSpeech(); this.classList.toggle('muted');" title="Activar/Silenciar Narrador de Voz">
+        🗣️
+      </button>
+      <button class="nav-btn-logout" onclick="App.logout()" title="Cambiar de estudiante">
+        <span>Salir</span> 🚪
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- BARRA DE NAVEGACIÓN SECUNDARIA (DESKTOP)   -->
+  <!-- ========================================== -->
+  <nav class="desktop-subnav">
+    <button class="nav-link active" data-view="menu" onclick="App.showView('menu')">
+      🏠 Menú Principal
+    </button>
+    <button class="nav-link" data-view="learning" onclick="App.showView('learning')">
+      📚 Aprender Tablas
+    </button>
+    <button class="nav-link" data-view="games" onclick="App.showView('games')">
+      🎮 Juegos y Desafíos
+    </button>
+    <button class="nav-link" data-view="progress" onclick="App.showView('progress')">
+      📊 Progreso y Puntaje
+    </button>
+    <button class="nav-link" data-view="badges" onclick="App.showView('badges')">
+      🏆 Logros y Medallas
+    </button>
+    <button class="nav-link" data-view="simce" onclick="App.showView('simce')">
+      📝 Ensayo SIMCE
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- CONTENEDOR PRINCIPAL DE VISTAS DINÁMICAS   -->
+  <!-- ========================================== -->
+  <main class="app-main-viewport">
+    
+    <!-- 1. VISTA: MENÚ PRINCIPAL -->
+    <section id="view-menu" class="view-panel" style="display: block;">
+      <div id="mainMenuContent"></div>
+    </section>
+
+    <!-- 2. VISTA: APRENDER TABLAS (COPISI) -->
+    <section id="view-learning" class="view-panel" style="display: none;">
+      <div id="learningModuleContainer"></div>
+    </section>
+
+    <!-- 3. VISTA: JUEGOS Y DESAFÍOS -->
+    <section id="view-games" class="view-panel" style="display: none;">
+      <div id="gamesModuleContainer"></div>
+    </section>
+
+    <!-- 4. VISTA: PROGRESO Y ESTADÍSTICAS -->
+    <section id="view-progress" class="view-panel" style="display: none;">
+      <div id="progressModuleContainer"></div>
+    </section>
+
+    <!-- 5. VISTA: LOGROS Y MEDALLAS -->
+    <section id="view-badges" class="view-panel" style="display: none;">
+      <div id="badgesModuleContainer"></div>
+    </section>
+
+    <!-- 6. VISTA: ENSAYO MATEMÁTICO TIPO SIMCE -->
+    <section id="view-simce" class="view-panel" style="display: none;">
+      <div id="simceModuleContainer"></div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- BARRA DE NAVEGACIÓN INFERIOR (MÓVIL / PWA) -->
+  <!-- ========================================== -->
+  <nav class="mobile-bottom-nav">
+    <button class="bottom-nav-item active" data-view="menu" onclick="App.showView('menu')">
+      <span class="bottom-icon">🏠</span>
+      <span class="bottom-label">Inicio</span>
+    </button>
+    <button class="bottom-nav-item" data-view="learning" onclick="App.showView('learning')">
+      <span class="bottom-icon">📚</span>
+      <span class="bottom-label">Aprender</span>
+    </button>
+    <button class="bottom-nav-item" data-view="games" onclick="App.showView('games')">
+      <span class="bottom-icon">🎮</span>
+      <span class="bottom-label">Juegos</span>
+    </button>
+    <button class="bottom-nav-item" data-view="progress" onclick="App.showView('progress')">
+      <span class="bottom-icon">📊</span>
+      <span class="bottom-label">Progreso</span>
+    </button>
+    <button class="bottom-nav-item" data-view="simce" onclick="App.showView('simce')">
+      <span class="bottom-icon">📝</span>
+      <span class="bottom-label">SIMCE</span>
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- ARCHIVOS JAVASCRIPT DEL SISTEMA            -->
+  <!-- ========================================== -->
+  <script src="JS/audio.js"></script>
+  <script src="JS/storage.js"></script>
+  <script src="JS/tables-data.js"></script>
+  <script src="JS/learning.js"></script>
+  <script src="JS/games.js"></script>
+  <script src="JS/simce.js"></script>
+  <script src="JS/app.js"></script>
+</body>
+</html>

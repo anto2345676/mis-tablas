@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <!-- Background circle -->
+  <circle cx="80" cy="80" r="76" fill="#9C27B0" stroke="#CE93D8" stroke-width="6"/>
+  <!-- Ears -->
+  <polygon points="44,70 32,30 68,46" fill="#BA68C8"/>
+  <polygon points="46,64 38,38 62,48" fill="#F48FB1"/>
+  <polygon points="116,70 128,30 92,46" fill="#BA68C8"/>
+  <polygon points="114,64 122,38 98,48" fill="#F48FB1"/>
+  <!-- Head -->
+  <circle cx="80" cy="84" r="44" fill="#CE93D8"/>
+  <!-- Cute hair flower or scientist bow -->
+  <circle cx="116" cy="46" r="10" fill="#FF4081"/>
+  <circle cx="116" cy="46" r="4" fill="#FFEB3B"/>
+  <!-- Cheeks -->
+  <ellipse cx="80" cy="98" rx="20" ry="14" fill="#F3E5F5"/>
+  <!-- Nose -->
+  <polygon points="80,94 75,88 85,88" fill="#EC407A"/>
+  <!-- Smile -->
+  <path d="M74,98 Q80,104 86,98" stroke="#4A148C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Big Cute Anime Eyes -->
+  <ellipse cx="62" cy="76" rx="10" ry="12" fill="#4A148C"/>
+  <ellipse cx="98" cy="76" rx="10" ry="12" fill="#4A148C"/>
+  <circle cx="64" cy="72" r="4.5" fill="#FFF"/>
+  <circle cx="100" cy="72" r="4.5" fill="#FFF"/>
+  <circle cx="60" cy="81" r="2" fill="#FFF"/>
+  <circle cx="96" cy="81" r="2" fill="#FFF"/>
+  <!-- Whiskers -->
+  <line x1="52" y1="92" x2="36" y2="88" stroke="#7B1FA2" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="98" x2="36" y2="100" stroke="#7B1FA2" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="108" y1="92" x2="124" y2="88" stroke="#7B1FA2" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="108" y1="98" x2="124" y2="100" stroke="#7B1FA2" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Glasses -->
+  <circle cx="62" cy="76" r="17" fill="none" stroke="#FF4081" stroke-width="3"/>
+  <circle cx="98" cy="76" r="17" fill="none" stroke="#FF4081" stroke-width="3"/>
+  <line x1="79" y1="76" x2="81" y2="76" stroke="#FF4081" stroke-width="3"/>
+</svg>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#4A00E0">
+  <meta name="description" content="Plataforma educativa interactiva para el aprendizaje de las tablas de multiplicar del 2 al 10 y preparación tipo SIMCE para 4° básico.">
+  <title>MIS TABLAS - Aventura Matemática 4° Básico</title>
+  <link rel="icon" type="image/svg+xml" href="Sistema/IMAGEN/logo.svg">
+  <link rel="stylesheet" href="Sistema/CSS/login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Floating math symbols background -->
+  <div class="math-bg" id="mathBg"></div>
+
+  <main class="login-container">
+    <!-- Platform Logo -->
+    <img src="Sistema/IMAGEN/logo.svg" alt="Logo Mis Tablas" class="login-logo">
+    <p class="login-tagline">✨ ¡Tu aventura interactiva para dominar las multiplicaciones! ✨</p>
+
+    <!-- Error Alert Box -->
+    <div id="alertBox" class="alert-box alert-danger">
+      <span id="alertMsg">Por favor completa tus datos.</span>
+    </div>
+
+    <!-- Registration / Access Form -->
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      
+      <!-- Student Name Input -->
+      <div class="form-group">
+        <label for="studentName" class="form-label">
+          <span class="icon">✏️</span> ¿Cómo te llamas?
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="studentName" 
+            class="student-input" 
+            placeholder="Escribe tu nombre o apodo..." 
+            autocomplete="off"
+            maxlength="25"
+            autofocus
+          >
+        </div>
+      </div>
+
+      <!-- Avatar Selection -->
+      <div class="form-group">
+        <label class="form-label">
+          <span class="icon">🎭</span> Elige a tu compañero de aventura:
+        </label>
+        <div class="avatar-grid" id="avatarGrid">
+          
+          <div class="avatar-card" data-avatar="buho" onclick="selectAvatar('buho')">
+            <img src="Sistema/IMAGEN/avatar_buho.svg" alt="Búho Sabio" class="avatar-img">
+            <span class="avatar-name">Búho Sabio</span>
+          </div>
+
+          <div class="avatar-card" data-avatar="zorro" onclick="selectAvatar('zorro')">
+            <img src="Sistema/IMAGEN/avatar_zorro.svg" alt="Zorro Veloz" class="avatar-img">
+            <span class="avatar-name">Zorro Veloz</span>
+          </div>
+
+          <div class="avatar-card" data-avatar="astronauta" onclick="selectAvatar('astronauta')">
+            <img src="Sistema/IMAGEN/avatar_astronauta.svg" alt="Astronauta Pepo" class="avatar-img">
+            <span class="avatar-name">Astronauta</span>
+          </div>
+
+          <div class="avatar-card" data-avatar="robot" onclick="selectAvatar('robot')">
+            <img src="Sistema/IMAGEN/avatar_robot.svg" alt="Robot Chispa" class="avatar-img">
+            <span class="avatar-name">Robot Chispa</span>
+          </div>
+
+          <div class="avatar-card" data-avatar="leon" onclick="selectAvatar('leon')">
+            <img src="Sistema/IMAGEN/avatar_leon.svg" alt="León Campeón" class="avatar-img">
+            <span class="avatar-name">León Campeón</span>
+          </div>
+
+          <div class="avatar-card" data-avatar="gatita" onclick="selectAvatar('gatita')">
+            <img src="Sistema/IMAGEN/avatar_gatita.svg" alt="Gatita Genia" class="avatar-img">
+            <span class="avatar-name">Gatita Genia</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-enter" id="btnEnter">
+        <span>¡Comenzar Misión!</span>
+        <span>🚀</span>
+      </button>
+
+      <!-- Returning Student Quick Access -->
+      <div id="returningBanner" class="returning-banner" style="display: none;">
+        <span>👤 Último viaje: <strong id="savedStudentName"></strong></span>
+        <button type="button" class="btn-quick-continue" onclick="continuePreviousSession()">Continuar ▶</button>
+      </div>
+
+    </form>
+
+    <footer class="login-footer">
+      <p>4° Básico • Departamento de Informática • Modelo Pedagógico COPISI & SIMCE</p>
+    </footer>
+  </main>
+
+  <script>
+    // State variables
+    let selectedAvatarId = null;
+
+    // Web Audio chime for button / selection
+    function playChime(freq = 520, type = 'sine') {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.22);
+      } catch (e) {
+        // AudioContext might be blocked until user gesture, ignore
+      }
+    }
+
+    // Avatar Selection function
+    function selectAvatar(avatarId) {
+      selectedAvatarId = avatarId;
+      playChime(640);
+      document.querySelectorAll('.avatar-card').forEach(card => {
+        if (card.getAttribute('data-avatar') === avatarId) {
+          card.classList.add('selected');
+        } else {
+          card.classList.remove('selected');
+        }
+      });
+      hideAlert();
+    }
+
+    // Show friendly alert message
+    function showAlert(msg) {
+      const box = document.getElementById('alertBox');
+      const text = document.getElementById('alertMsg');
+      text.textContent = msg;
+      box.classList.add('show');
+      playChime(320, 'triangle');
+    }
+
+    function hideAlert() {
+      const box = document.getElementById('alertBox');
+      box.classList.remove('show');
+    }
+
+    // Validation and Login Handler
+    function handleLogin(event) {
+      if (event) event.preventDefault();
+
+      const nameInput = document.getElementById('studentName');
+      const rawName = nameInput.value.trim();
+
+      // 1. Validate student name
+      if (!rawName) {
+        showAlert('⚠️ ¡Por favor escribe tu nombre para comenzar la aventura!');
+        nameInput.focus();
+        return;
+      }
+
+      if (rawName.length < 2) {
+        showAlert('⚠️ Tu nombre debe tener al menos 2 letras.');
+        nameInput.focus();
+        return;
+      }
+
+      // 2. Validate avatar selection
+      if (!selectedAvatarId) {
+        showAlert('⚠️ ¡Elige a tu compañero avatar haciendo clic en uno de ellos!');
+        return;
+      }
+
+      // Format name nicely (capitalize first letters)
+      const cleanName = rawName.split(' ')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ');
+
+      // Save user to localStorage
+      let studentData = {};
+      try {
+        const stored = localStorage.getItem('misTablas_student');
+        if (stored) {
+          studentData = JSON.parse(stored);
+        }
+      } catch (e) {}
+
+      // Keep existing progress if same name, otherwise initialize
+      const isSameUser = (studentData.name && studentData.name.toLowerCase() === cleanName.toLowerCase());
+
+      const profile = {
+        name: cleanName,
+        avatar: selectedAvatarId,
+        lastLogin: new Date().toISOString(),
+        score: isSameUser ? (studentData.score || 0) : 0,
+        stars: isSameUser ? (studentData.stars || 0) : 0,
+        level: isSameUser ? (studentData.level || 1) : 1,
+        completedTables: isSameUser ? (studentData.completedTables || []) : [],
+        badges: isSameUser ? (studentData.badges || []) : [],
+        tableProgress: isSameUser ? (studentData.tableProgress || {}) : {},
+        simceScore: isSameUser ? (studentData.simceScore || null) : null
+      };
+
+      localStorage.setItem('misTablas_student', JSON.stringify(profile));
+
+      // Play success tone and redirect to Sistema/index.html
+      playChime(880);
+      setTimeout(() => {
+        window.location.href = 'Sistema/index.html';
+      }, 200);
+    }
+
+    // Quick continue for previously saved session
+    function continuePreviousSession() {
+      try {
+        const stored = localStorage.getItem('misTablas_student');
+        if (stored) {
+          const data = JSON.parse(stored);
+          if (data.name && data.avatar) {
+            window.location.href = 'Sistema/index.html';
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Generate floating math background elements
+    function createMathBackground() {
+      const symbols = ['×', '•', '+', '÷', '=', '2×3', '5×5', '9×4', '★', '7×8', '6×6', '4×9'];
+      const bg = document.getElementById('mathBg');
+      for (let i = 0; i < 24; i++) {
+        const span = document.createElement('span');
+        span.className = 'math-symbol';
+        span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        span.style.left = Math.random() * 95 + 'vw';
+        span.style.fontSize = (Math.random() * 24 + 18) + 'px';
+        span.style.animationDuration = (Math.random() * 12 + 10) + 's';
+        span.style.animationDelay = (Math.random() * 8) + 's';
+        bg.appendChild(span);
+      }
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      createMathBackground();
+
+      // Check if user already exists
+      try {
+        const stored = localStorage.getItem('misTablas_student');
+        if (stored) {
+          const data = JSON.parse(stored);
+          if (data.name) {
+            document.getElementById('studentName').value = data.name;
+            document.getElementById('savedStudentName').textContent = data.name;
+            document.getElementById('returningBanner').style.display = 'flex';
+            if (data.avatar) {
+              selectAvatar(data.avatar);
+            }
+          }
+        }
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

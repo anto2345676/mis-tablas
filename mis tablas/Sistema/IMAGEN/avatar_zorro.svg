@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <!-- Background circle -->
+  <circle cx="80" cy="80" r="76" fill="#FF5722" stroke="#FF8A65" stroke-width="6"/>
+  <!-- Ears -->
+  <polygon points="40,65 30,22 65,40" fill="#E64A19"/>
+  <polygon points="44,55 38,30 60,42" fill="#212121"/>
+  <polygon points="120,65 130,22 95,40" fill="#E64A19"/>
+  <polygon points="116,55 122,30 100,42" fill="#212121"/>
+  <!-- Head -->
+  <polygon points="80,135 30,75 130,75" fill="#FF7043"/>
+  <circle cx="80" cy="78" r="42" fill="#FF7043"/>
+  <!-- White cheeks -->
+  <polygon points="80,128 35,85 58,110" fill="#FFFFFF"/>
+  <polygon points="80,128 125,85 102,110" fill="#FFFFFF"/>
+  <!-- Superhero Mask -->
+  <path d="M42,68 Q60,60 80,68 Q100,60 118,68 Q115,86 98,82 Q80,88 62,82 Q45,86 42,68 Z" fill="#263238"/>
+  <!-- Eyes -->
+  <ellipse cx="60" cy="74" rx="8" ry="7" fill="#FFF"/>
+  <ellipse cx="100" cy="74" rx="8" ry="7" fill="#FFF"/>
+  <circle cx="62" cy="74" r="4" fill="#00E676"/>
+  <circle cx="98" cy="74" r="4" fill="#00E676"/>
+  <circle cx="63" cy="72" r="1.5" fill="#FFF"/>
+  <circle cx="99" cy="72" r="1.5" fill="#FFF"/>
+  <!-- Nose -->
+  <circle cx="80" cy="118" r="7" fill="#212121"/>
+  <!-- Smile -->
+  <path d="M74,127 Q80,132 86,127" stroke="#212121" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Lightning bolt forehead badge -->
+  <polygon points="80,36 84,46 78,48 82,58 74,48 78,46" fill="#FFEB3B"/>
+</svg>
